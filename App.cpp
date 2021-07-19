@@ -18,7 +18,7 @@ void App::runApp()
         case MENU:
             menu();
             break;
-        
+
         default:
             break;
         }
@@ -34,6 +34,20 @@ void App::menu()
     title.setFillColor(fontColor);
     title.setPosition(window.getSize().x / 2 - title.getGlobalBounds().width / 2, 50);
 
+    sf::Text play;
+    play.setString("Play");
+    play.setFont(font);
+    play.setCharacterSize(40);
+    play.setFillColor(fontColor);
+    play.setPosition(window.getSize().x / 2 - play.getGlobalBounds().width / 2, 150);
+
+    sf::Text quit;
+    quit.setString("Quit");
+    quit.setFont(font);
+    quit.setCharacterSize(40);
+    quit.setFillColor(fontColor);
+    quit.setPosition(window.getSize().x / 2 - quit.getGlobalBounds().width / 2, 250);
+
     while (state == MENU)
     {
         sf::Event event;
@@ -45,10 +59,25 @@ void App::menu()
                 window.close();
                 break;
             }
+            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+            {
+                if (play.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+                {
+                    // play
+                }
+                if (quit.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+                {
+                    state = EXIT;
+                    window.close();
+                    break;
+                }
+            }
         }
-        
+
         window.clear(backColor);
         window.draw(title);
+        window.draw(play);
+        window.draw(quit);
         window.display();
     }
 }
