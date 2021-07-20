@@ -19,6 +19,10 @@ void App::runApp()
             menu();
             break;
 
+        case GAME:
+            play();
+            break;
+
         default:
             break;
         }
@@ -63,7 +67,8 @@ void App::menu()
             {
                 if (play.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
                 {
-                    // play
+                    state = GAME;
+                    break;
                 }
                 if (quit.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
                 {
@@ -80,4 +85,11 @@ void App::menu()
         window.draw(quit);
         window.display();
     }
+}
+
+void App::play()
+{
+    Game game;
+    game.runGame(window);
+    state = MENU;
 }

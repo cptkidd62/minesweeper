@@ -2,6 +2,7 @@
 #define APP_HPP
 
 #include <SFML/Graphics.hpp>
+#include "Game.hpp"
 
 class App
 {
@@ -23,6 +24,7 @@ private:
     sf::Color fontColor, backColor;
 
     void menu();
+    void play();
 };
 
 #endif
