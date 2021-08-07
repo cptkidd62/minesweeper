@@ -1,6 +1,13 @@
 #include "Tile.hpp"
 
+Tile::Tile() {}
+
 Tile::Tile(int x, int y)
 {
-    backside.setColor(sf::Color::Blue);
+    
+}
+
+void Tile::draw(sf::RenderTarget &target, sf::RenderStates states) const
+{
+    target.draw(sprite, states);
 }

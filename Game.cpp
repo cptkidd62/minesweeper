@@ -44,6 +44,7 @@ void Game::runGame(sf::RenderWindow &window)
         window.clear(backColor);
         window.draw(timeTxt);
         window.draw(menuBtn);
+        window.draw(board);
         window.display();
     }
 }
