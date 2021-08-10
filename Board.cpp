@@ -1,8 +1,29 @@
 #include "Board.hpp"
 
-Board::Board()
+Board::Board(int x, int y, int size)
 {
-    tiles.push_back(new Bomb(0, 0));
+    xpos = x;
+    ypos = y;
+    std::vector<int> src = {-1, 0, 1};
+    int k = 0;
+    for (int i : src)
+    {
+        Tile *ptr;
+        if (i == -1)
+        {
+            ptr = new Bomb(x + k * 50, y);
+        }
+        if (i == 0)
+        {
+            ptr = new Empty(x + k * 50, y);
+        }
+        if (i == 1)
+        {
+            ptr = new Number(x + k * 50, y);
+        }
+        tiles.push_back(ptr);
+        k++;
+    }
 }
 
 Board::~Board()

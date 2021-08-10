@@ -5,6 +5,12 @@ Game::Game()
     font.loadFromFile("resources/VT323-Regular.ttf");
     fontColor = sf::Color::Red;
     backColor = sf::Color(125, 125, 125);
+    board = new Board(100, 100, 3);
+}
+
+Game::~Game()
+{
+    delete board;
 }
 
 void Game::runGame(sf::RenderWindow &window)
@@ -44,7 +50,7 @@ void Game::runGame(sf::RenderWindow &window)
         window.clear(backColor);
         window.draw(timeTxt);
         window.draw(menuBtn);
-        window.draw(board);
+        window.draw(*board);
         window.display();
     }
 }

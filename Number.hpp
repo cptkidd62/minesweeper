@@ -6,6 +6,7 @@
 class Number : public Tile
 {
 public:
+    Number(int x, int y);
 
 private:
 };

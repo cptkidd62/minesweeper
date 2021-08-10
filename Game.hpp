@@ -8,13 +8,14 @@ class Game
 {
 public:
     Game();
+    ~Game();
 
     void runGame(sf::RenderWindow &window);
 
 private:
     sf::Font font;
     sf::Color fontColor, backColor;
-    Board board;
+    Board *board;
 };
 
 #endif
