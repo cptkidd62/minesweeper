@@ -5,7 +5,7 @@ Game::Game()
     font.loadFromFile("resources/VT323-Regular.ttf");
     fontColor = sf::Color::Red;
     backColor = sf::Color(125, 125, 125);
-    board = new Board(100, 100, 3);
+    board = new Board(100, 100, 3, 1);
 }
 
 Game::~Game()

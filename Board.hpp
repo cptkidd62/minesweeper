@@ -10,12 +10,14 @@
 class Board : public sf::Drawable
 {
 public:
-    Board(int x, int y, int size);
+    Board(int x, int y, int size, int level);
     ~Board();
 
 private:
     int xpos, ypos;
     std::vector<Tile *> tiles;
+
+    std::vector<int> generate(int size, int bombs);
 
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };
