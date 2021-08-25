@@ -5,7 +5,7 @@ Game::Game()
     font.loadFromFile("resources/VT323-Regular.ttf");
     fontColor = sf::Color::Red;
     backColor = sf::Color(125, 125, 125);
-    board = new Board(100, 100, 3, 1);
+    board = new Board(100, 100, 5, 3);
 }
 
 Game::~Game()
@@ -38,11 +38,22 @@ void Game::runGame(sf::RenderWindow &window)
             {
                 return;
             }
-            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+            if (event.type == sf::Event::MouseButtonPressed)
             {
-                if (menuBtn.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+                if (event.mouseButton.button == sf::Mouse::Left)
                 {
-                    return;
+                    if (menuBtn.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        board->click(window.mapPixelToCoords(sf::Mouse::getPosition(window)), true);
+                    }
+                }
+                if (event.mouseButton.button == sf::Mouse::Right)
+                {
+                    board->click(window.mapPixelToCoords(sf::Mouse::getPosition(window)), false);
                 }
             }
         }

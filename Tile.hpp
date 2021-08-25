@@ -11,6 +11,7 @@ public:
 
     bool revert();
     bool changeMark();
+    bool contains(sf::Vector2f mPos);
 
 protected:
     sf::Texture backside;

@@ -13,6 +13,9 @@ public:
     Board(int x, int y, int size, int level);
     ~Board();
 
+    // int returns points given for move
+    int click(sf::Vector2f mPos, bool left);
+
 private:
     int xpos, ypos;
     std::vector<Tile *> tiles;

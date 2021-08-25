@@ -34,8 +34,29 @@ Board::~Board()
     }
 }
 
+int Board::click(sf::Vector2f mPos, bool left)
+{
+    for (auto t : tiles)
+    {
+        if (t->contains(mPos))
+        {
+            if (left)
+            {
+                t->revert();
+            }
+            else
+            {
+                t->changeMark();
+            }
+            return 1;
+        }
+    }
+    return 0;
+}
+
 std::vector<int> Board::generate(int size, int bombs)
 {
+    std::srand(time(NULL));
     std::vector<int> board;
     board.resize(size * size);
     for (int i = 0; i < bombs; i++)

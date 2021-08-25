@@ -8,6 +8,6 @@ Number::Number(int x, int y, int n)
     front = false;
     marked = false;
     sprite.setPosition(100 + x, 100 + y);
-    sprite.setTexture(frontside);
+    sprite.setTexture(backside);
     sprite.setScale(0.1, 0.1);
 }
