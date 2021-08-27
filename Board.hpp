@@ -14,11 +14,12 @@ public:
     ~Board();
 
     // int returns move type
-    int click(sf::Vector2f mPos, bool left);
+    std::pair<int, int> click(sf::Vector2f mPos, bool left);
 
 private:
     int xpos, ypos;
     int bombsLeft;
+    int toRevert;
     std::vector<Tile *> tiles;
 
     std::vector<int> generate(int size, int bombs);

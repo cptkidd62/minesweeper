@@ -5,6 +5,7 @@ Board::Board(int x, int y, int size, int level)
     xpos = x;
     ypos = y;
     bombsLeft = level * 3;
+    toRevert = size * size - bombsLeft;
     std::vector<int> src = generate(size, bombsLeft);
     int k = 0;
     for (int i : src)
@@ -35,7 +36,7 @@ Board::~Board()
     }
 }
 
-int Board::click(sf::Vector2f mPos, bool left)
+std::pair<int, int> Board::click(sf::Vector2f mPos, bool left)
 {
     for (auto t : tiles)
     {
@@ -43,7 +44,8 @@ int Board::click(sf::Vector2f mPos, bool left)
         {
             if (left)
             {
-                t->revert();
+                if (t->revert())
+                    toRevert--;
             }
             else
             {
@@ -57,7 +59,7 @@ int Board::click(sf::Vector2f mPos, bool left)
             }
         }
     }
-    return bombsLeft;
+    return {bombsLeft, toRevert};
 }
 
 std::vector<int> Board::generate(int size, int bombs)

@@ -22,9 +22,11 @@ void Game::runGame(sf::RenderWindow &window)
     timeTxt.setPosition(50, 50);
     timeTxt.setFillColor(fontColor);
 
+    std::pair<int, int> p = board->click(sf::Vector2f(0, 0), true);
+
     sf::Text bombTxt;
     bombTxt.setFont(font);
-    bombTxt.setString("Bombs: " + std::to_string(board->click(sf::Vector2f(0, 0), true)));
+    bombTxt.setString("Bombs: " + std::to_string(p.first));
     bombTxt.setCharacterSize(50);
     bombTxt.setPosition(50, 150);
     bombTxt.setFillColor(fontColor);
@@ -55,12 +57,16 @@ void Game::runGame(sf::RenderWindow &window)
                     }
                     else
                     {
-                        bombTxt.setString("Bombs: " + std::to_string(board->click(window.mapPixelToCoords(sf::Mouse::getPosition(window)), true)));
+                        p = board->click(window.mapPixelToCoords(sf::Mouse::getPosition(window)), true);
+                        bombTxt.setString("Bombs: " + std::to_string(p.first));
+                        if (p.second == 0) {return;};
                     }
                 }
                 if (event.mouseButton.button == sf::Mouse::Right)
                 {
-                    bombTxt.setString("Bombs: " + std::to_string(board->click(window.mapPixelToCoords(sf::Mouse::getPosition(window)), false)));
+                    p = board->click(window.mapPixelToCoords(sf::Mouse::getPosition(window)), false);
+                    bombTxt.setString("Bombs: " + std::to_string(p.first));
+                    if (p.second == 0) {return;};
                 }
             }
         }
