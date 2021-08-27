@@ -5,7 +5,7 @@ Game::Game()
     font.loadFromFile("resources/VT323-Regular.ttf");
     fontColor = sf::Color::Red;
     backColor = sf::Color(125, 125, 125);
-    board = new Board(100, 100, 5, 3);
+    board = new Board(100, 100, 5, 2);
 }
 
 Game::~Game()
@@ -21,6 +21,13 @@ void Game::runGame(sf::RenderWindow &window)
     timeTxt.setCharacterSize(50);
     timeTxt.setPosition(50, 50);
     timeTxt.setFillColor(fontColor);
+
+    sf::Text bombTxt;
+    bombTxt.setFont(font);
+    bombTxt.setString("Bombs: " + std::to_string(board->click(sf::Vector2f(0, 0), true)));
+    bombTxt.setCharacterSize(50);
+    bombTxt.setPosition(50, 150);
+    bombTxt.setFillColor(fontColor);
 
     sf::Text menuBtn;
     menuBtn.setFont(font);
@@ -48,18 +55,19 @@ void Game::runGame(sf::RenderWindow &window)
                     }
                     else
                     {
-                        board->click(window.mapPixelToCoords(sf::Mouse::getPosition(window)), true);
+                        bombTxt.setString("Bombs: " + std::to_string(board->click(window.mapPixelToCoords(sf::Mouse::getPosition(window)), true)));
                     }
                 }
                 if (event.mouseButton.button == sf::Mouse::Right)
                 {
-                    board->click(window.mapPixelToCoords(sf::Mouse::getPosition(window)), false);
+                    bombTxt.setString("Bombs: " + std::to_string(board->click(window.mapPixelToCoords(sf::Mouse::getPosition(window)), false)));
                 }
             }
         }
 
         window.clear(backColor);
         window.draw(timeTxt);
+        window.draw(bombTxt);
         window.draw(menuBtn);
         window.draw(*board);
         window.display();

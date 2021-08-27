@@ -13,11 +13,12 @@ public:
     Board(int x, int y, int size, int level);
     ~Board();
 
-    // int returns points given for move
+    // int returns move type
     int click(sf::Vector2f mPos, bool left);
 
 private:
     int xpos, ypos;
+    int bombsLeft;
     std::vector<Tile *> tiles;
 
     std::vector<int> generate(int size, int bombs);

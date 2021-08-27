@@ -6,7 +6,7 @@ Tile::Tile(int x, int y) {}
 
 bool Tile::revert()
 {
-    if (!front)
+    if (!front && !marked)
     {
         front = true;
         sprite.setTexture(frontside);
@@ -15,7 +15,7 @@ bool Tile::revert()
     return false;
 }
 
-bool Tile::changeMark()
+int Tile::changeMark()
 {
     if (!front)
     {
@@ -23,15 +23,16 @@ bool Tile::changeMark()
         {
             marked = true;
             sprite.setTexture(flag);
+            return 1;
         }
         else
         {
             marked = false;
             sprite.setTexture(backside);
+            return -1;
         }
-        return true;
     }
-    return false;
+    return 0;
 }
 
 bool Tile::contains(sf::Vector2f mPos)

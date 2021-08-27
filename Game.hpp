@@ -16,6 +16,7 @@ private:
     sf::Font font;
     sf::Color fontColor, backColor;
     Board *board;
+    int bombs;
 };
 
 #endif

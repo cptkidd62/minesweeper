@@ -4,7 +4,8 @@ Board::Board(int x, int y, int size, int level)
 {
     xpos = x;
     ypos = y;
-    std::vector<int> src = generate(size, level * 3);
+    bombsLeft = level * 3;
+    std::vector<int> src = generate(size, bombsLeft);
     int k = 0;
     for (int i : src)
     {
@@ -46,12 +47,17 @@ int Board::click(sf::Vector2f mPos, bool left)
             }
             else
             {
-                t->changeMark();
+                int r = t->changeMark();
+                bombsLeft -= r;
+                if (bombsLeft < 0)
+                {
+                    int r = t->changeMark();
+                    bombsLeft -= r;
+                }
             }
-            return 1;
         }
     }
-    return 0;
+    return bombsLeft;
 }
 
 std::vector<int> Board::generate(int size, int bombs)
