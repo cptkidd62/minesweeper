@@ -11,3 +11,11 @@ Bomb::Bomb(int x, int y)
     sprite.setTexture(backside);
     sprite.setScale(0.1, 0.1);
 }
+
+int Bomb::revert()
+{
+    if (Tile::revert())
+        return -1;
+    else
+        return 0;
+}

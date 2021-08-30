@@ -4,15 +4,15 @@ Tile::Tile() {}
 
 Tile::Tile(int x, int y) {}
 
-bool Tile::revert()
+int Tile::revert()
 {
     if (!front && !marked)
     {
         front = true;
         sprite.setTexture(frontside);
-        return true;
+        return 1;
     }
-    return false;
+    return 0;
 }
 
 int Tile::changeMark()

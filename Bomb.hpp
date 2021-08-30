@@ -8,6 +8,8 @@ class Bomb : public Tile
 public:
     Bomb(int x, int y);
 
+    int revert();
+    
 private:
 };
 

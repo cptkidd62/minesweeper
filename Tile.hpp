@@ -9,7 +9,7 @@ public:
     Tile();
     Tile(int x, int y);
 
-    bool revert();
+    virtual int revert();
     int changeMark();
     bool contains(sf::Vector2f mPos);
 

@@ -59,6 +59,7 @@ void Game::runGame(sf::RenderWindow &window)
                     {
                         p = board->click(window.mapPixelToCoords(sf::Mouse::getPosition(window)), true);
                         bombTxt.setString("Bombs: " + std::to_string(p.first));
+                        if (p.second < 0) {return;};
                         if (p.second == 0) {return;};
                     }
                 }
@@ -66,6 +67,7 @@ void Game::runGame(sf::RenderWindow &window)
                 {
                     p = board->click(window.mapPixelToCoords(sf::Mouse::getPosition(window)), false);
                     bombTxt.setString("Bombs: " + std::to_string(p.first));
+                    if (p.second < 0) {return;};
                     if (p.second == 0) {return;};
                 }
             }

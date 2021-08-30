@@ -44,8 +44,11 @@ std::pair<int, int> Board::click(sf::Vector2f mPos, bool left)
         {
             if (left)
             {
-                if (t->revert())
+                int r = t->revert();
+                if (r == 1)
                     toRevert--;
+                else if (r == -1)
+                    toRevert = -1;
             }
             else
             {
