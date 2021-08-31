@@ -8,6 +8,8 @@ class Empty : public Tile
 public:
     Empty(int x, int y);
 
+    int revert();
+
 private:
 };
 

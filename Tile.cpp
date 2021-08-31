@@ -40,6 +40,11 @@ bool Tile::contains(sf::Vector2f mPos)
     return sprite.getGlobalBounds().contains(mPos);
 }
 
+void Tile::setNeighbors(std::vector<Tile *> neigh)
+{
+    neighbors = neigh;
+}
+
 void Tile::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
     target.draw(sprite, states);

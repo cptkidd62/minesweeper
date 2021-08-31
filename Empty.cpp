@@ -11,3 +11,20 @@ Empty::Empty(int x, int y)
     sprite.setTexture(backside);
     sprite.setScale(0.1, 0.1);
 }
+
+int Empty::revert()
+{
+    if (!front && !marked)
+    {
+        front = true;
+        sprite.setTexture(frontside);
+        int r = 1;
+        for (auto n : neighbors)
+        {
+            n->revert();
+            r++;
+        }
+        return r;
+    }
+    return 0;
+}

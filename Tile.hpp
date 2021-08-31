@@ -2,6 +2,7 @@
 #define TILE_HPP
 
 #include <SFML/Graphics.hpp>
+#include <vector>
 
 class Tile : public sf::Drawable
 {
@@ -12,6 +13,7 @@ public:
     virtual int revert();
     int changeMark();
     bool contains(sf::Vector2f mPos);
+    void setNeighbors(std::vector<Tile *> neigh);
 
 protected:
     sf::Texture backside;
@@ -20,6 +22,7 @@ protected:
     sf::Sprite sprite;
     bool front;
     bool marked;
+    std::vector<Tile *> neighbors;
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };
 

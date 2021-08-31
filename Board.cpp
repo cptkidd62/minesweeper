@@ -26,6 +26,27 @@ Board::Board(int x, int y, int size, int level)
         tiles.push_back(ptr);
         k++;
     }
+    for (int i = 0; i < size * size; i++)
+    {
+        std::vector<Tile *> neighbors;
+        if (i - size - 1 >= 0 && (i - size - 1) / size == i / size - 1)
+            neighbors.push_back(tiles[i - size - 1]);
+        if (i - size >= 0 && (i - size) / size == i / size - 1)
+            neighbors.push_back(tiles[i - size]);
+        if (i - size + 1 >= 0 && (i - size + 1) / size == i / size - 1)
+            neighbors.push_back(tiles[i - size + 1]);
+        if (i - 1 >= 0 && (i - 1) / size == i / size)
+            neighbors.push_back(tiles[i - 1]);
+        if (i + 1 < size * size && (i + 1) / size == i / size)
+            neighbors.push_back(tiles[i + 1]);
+        if (i + size - 1 < size * size && (i + size - 1) / size == i / size + 1)
+            neighbors.push_back(tiles[i + size - 1]);
+        if (i + size < size * size && (i + size) / size == i / size + 1)
+            neighbors.push_back(tiles[i + size]);
+        if (i + size + 1 < size * size && (i + size + 1) / size == i / size + 1)
+            neighbors.push_back(tiles[i + size + 1]);
+        tiles[i]->setNeighbors(neighbors);
+    }
 }
 
 Board::~Board()
@@ -45,8 +66,8 @@ std::pair<int, int> Board::click(sf::Vector2f mPos, bool left)
             if (left)
             {
                 int r = t->revert();
-                if (r == 1)
-                    toRevert--;
+                if (r > 0)
+                    toRevert -= r;
                 else if (r == -1)
                     toRevert = -1;
             }
