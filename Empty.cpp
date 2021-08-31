@@ -21,8 +21,7 @@ int Empty::revert()
         int r = 1;
         for (auto n : neighbors)
         {
-            n->revert();
-            r++;
+            r += n->revert();
         }
         return r;
     }
