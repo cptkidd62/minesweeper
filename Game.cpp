@@ -17,10 +17,12 @@ void Game::runGame(sf::RenderWindow &window)
 {
     sf::Text timeTxt;
     timeTxt.setFont(font);
-    timeTxt.setString("Time: ");
+    timeTxt.setString("Time: 0:00");
     timeTxt.setCharacterSize(50);
     timeTxt.setPosition(50, 50);
     timeTxt.setFillColor(fontColor);
+
+    sf::Clock timer;
 
     std::pair<int, int> p = board->click(sf::Vector2f(0, 0), true);
 
@@ -37,6 +39,8 @@ void Game::runGame(sf::RenderWindow &window)
     menuBtn.setCharacterSize(50);
     menuBtn.setPosition(50, 700);
     menuBtn.setFillColor(fontColor);
+
+    timer.restart();
 
     while (true)
     {
@@ -72,6 +76,9 @@ void Game::runGame(sf::RenderWindow &window)
                 }
             }
         }
+
+        int snap = timer.getElapsedTime().asSeconds();
+        timeTxt.setString("Time: " + std::to_string(snap / 60) + (snap % 60 < 10 ? ":0" : ":") + std::to_string(snap % 60));
 
         window.clear(backColor);
         window.draw(timeTxt);
