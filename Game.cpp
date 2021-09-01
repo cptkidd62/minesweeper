@@ -6,6 +6,7 @@ Game::Game()
     fontColor = sf::Color::Red;
     backColor = sf::Color(125, 125, 125);
     board = new Board(100, 100, 5, 2);
+    state = PLAYING;
 }
 
 Game::~Game()
@@ -42,14 +43,14 @@ void Game::runGame(sf::RenderWindow &window)
 
     timer.restart();
 
-    while (true)
+    while (state == PLAYING)
     {
         sf::Event event;
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
             {
-                return;
+                state = EXIT;
             }
             if (event.type == sf::Event::MouseButtonPressed)
             {
@@ -57,22 +58,22 @@ void Game::runGame(sf::RenderWindow &window)
                 {
                     if (menuBtn.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
                     {
-                        return;
+                        state = EXIT;
                     }
                     else
                     {
                         p = board->click(window.mapPixelToCoords(sf::Mouse::getPosition(window)), true);
                         bombTxt.setString("Bombs: " + std::to_string(p.first));
-                        if (p.second < 0) {return;};
-                        if (p.second == 0) {return;};
+                        if (p.second < 0) {state = LOST;};
+                        if (p.second == 0) {state = WON;};
                     }
                 }
                 if (event.mouseButton.button == sf::Mouse::Right)
                 {
                     p = board->click(window.mapPixelToCoords(sf::Mouse::getPosition(window)), false);
                     bombTxt.setString("Bombs: " + std::to_string(p.first));
-                    if (p.second < 0) {return;};
-                    if (p.second == 0) {return;};
+                    if (p.second < 0) {state = LOST;};
+                    if (p.second == 0) {state = WON;};
                 }
             }
         }

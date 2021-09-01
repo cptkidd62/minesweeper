@@ -17,6 +17,13 @@ private:
     sf::Color fontColor, backColor;
     Board *board;
     int bombs;
+    enum State
+    {
+        PLAYING,
+        WON,
+        LOST,
+        EXIT
+    } state;
 };
 
 #endif
