@@ -41,9 +41,16 @@ void Game::runGame(sf::RenderWindow &window)
     menuBtn.setPosition(50, 700);
     menuBtn.setFillColor(fontColor);
 
+    sf::Text replayBtn;
+    replayBtn.setFont(font);
+    replayBtn.setString("New Game");
+    replayBtn.setCharacterSize(50);
+    replayBtn.setPosition(350, 700);
+    replayBtn.setFillColor(fontColor);
+
     timer.restart();
 
-    while (state == PLAYING)
+    while (state == PLAYING || state == LOST)
     {
         sf::Event event;
         while (window.pollEvent(event))
@@ -60,31 +67,52 @@ void Game::runGame(sf::RenderWindow &window)
                     {
                         state = EXIT;
                     }
-                    else
+                    else if (replayBtn.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))) && state == LOST)
+                    {
+                        //TODO
+                    }
+                    else if (state == PLAYING)
                     {
                         p = board->click(window.mapPixelToCoords(sf::Mouse::getPosition(window)), true);
                         bombTxt.setString("Bombs: " + std::to_string(p.first));
-                        if (p.second < 0) {state = LOST;};
-                        if (p.second == 0) {state = WON;};
+                        if (p.second < 0)
+                        {
+                            state = LOST;
+                        };
+                        if (p.second == 0)
+                        {
+                            state = WON;
+                        };
                     }
                 }
-                if (event.mouseButton.button == sf::Mouse::Right)
+                if (event.mouseButton.button == sf::Mouse::Right && state == PLAYING)
                 {
                     p = board->click(window.mapPixelToCoords(sf::Mouse::getPosition(window)), false);
                     bombTxt.setString("Bombs: " + std::to_string(p.first));
-                    if (p.second < 0) {state = LOST;};
-                    if (p.second == 0) {state = WON;};
+                    if (p.second < 0)
+                    {
+                        state = LOST;
+                    };
+                    if (p.second == 0)
+                    {
+                        state = WON;
+                    };
                 }
             }
         }
 
-        int snap = timer.getElapsedTime().asSeconds();
-        timeTxt.setString("Time: " + std::to_string(snap / 60) + (snap % 60 < 10 ? ":0" : ":") + std::to_string(snap % 60));
+        if (state == PLAYING)
+        {
+            int snap = timer.getElapsedTime().asSeconds();
+            timeTxt.setString("Time: " + std::to_string(snap / 60) + (snap % 60 < 10 ? ":0" : ":") + std::to_string(snap % 60));
+        }
 
         window.clear(backColor);
         window.draw(timeTxt);
         window.draw(bombTxt);
         window.draw(menuBtn);
+        if (state == LOST)
+            window.draw(replayBtn);
         window.draw(*board);
         window.display();
     }
