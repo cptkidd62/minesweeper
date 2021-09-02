@@ -1,10 +1,10 @@
 #include "Board.hpp"
 
-Board::Board(int x, int y, int size, int level)
+Board::Board(int x, int y, int size, int bombs)
 {
     xpos = x;
     ypos = y;
-    bombsLeft = level * 3;
+    bombsLeft = bombs;
     toRevert = size * size - bombsLeft;
     std::vector<int> src = generate(size, bombsLeft);
     int k = 0;

@@ -10,7 +10,7 @@
 class Board : public sf::Drawable
 {
 public:
-    Board(int x, int y, int size, int level);
+    Board(int x, int y, int size, int bombs);
     ~Board();
 
     // int returns move type

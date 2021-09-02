@@ -7,7 +7,7 @@
 class Game
 {
 public:
-    Game();
+    Game(int level);
     ~Game();
 
     int runGame(sf::RenderWindow &window);

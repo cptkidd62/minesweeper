@@ -1,11 +1,22 @@
 #include "Game.hpp"
 
-Game::Game()
+Game::Game(int level)
 {
     font.loadFromFile("resources/VT323-Regular.ttf");
     fontColor = sf::Color::Red;
     backColor = sf::Color(125, 125, 125);
-    board = new Board(100, 100, 5, 2);
+    if (level == 1)
+    {
+        board = new Board(40, 70, 5, 5);
+    }
+    else if (level == 2)
+    {
+        board = new Board(40, 70, 7, 10);
+    }
+    else if (level == 3)
+    {
+        board = new Board(40, 70, 10, 20);
+    }
     state = PLAYING;
 }
 
@@ -31,7 +42,7 @@ int Game::runGame(sf::RenderWindow &window)
     bombTxt.setFont(font);
     bombTxt.setString("Bombs: " + std::to_string(p.first));
     bombTxt.setCharacterSize(50);
-    bombTxt.setPosition(50, 150);
+    bombTxt.setPosition(350, 50);
     bombTxt.setFillColor(fontColor);
 
     sf::Text menuBtn;

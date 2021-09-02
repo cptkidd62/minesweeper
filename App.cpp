@@ -91,7 +91,7 @@ void App::play()
 {
     while (true)
     {
-        Game game;
+        Game game(3);
         if (!game.runGame(window))
             break;
     }
