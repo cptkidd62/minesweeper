@@ -10,7 +10,7 @@ public:
     Game();
     ~Game();
 
-    void runGame(sf::RenderWindow &window);
+    int runGame(sf::RenderWindow &window);
 
 private:
     sf::Font font;
@@ -22,7 +22,8 @@ private:
         PLAYING,
         WON,
         LOST,
-        EXIT
+        EXIT,
+        REPLAY
     } state;
 };
 

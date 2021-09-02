@@ -14,7 +14,7 @@ Game::~Game()
     delete board;
 }
 
-void Game::runGame(sf::RenderWindow &window)
+int Game::runGame(sf::RenderWindow &window)
 {
     sf::Text timeTxt;
     timeTxt.setFont(font);
@@ -66,10 +66,12 @@ void Game::runGame(sf::RenderWindow &window)
                     if (menuBtn.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
                     {
                         state = EXIT;
+                        return 0;
                     }
                     else if (replayBtn.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))) && state == LOST)
                     {
-                        //TODO
+                        state = REPLAY;
+                        return 1;
                     }
                     else if (state == PLAYING)
                     {
@@ -116,4 +118,5 @@ void Game::runGame(sf::RenderWindow &window)
         window.draw(*board);
         window.display();
     }
+    return 0;
 }

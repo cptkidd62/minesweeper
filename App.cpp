@@ -89,7 +89,11 @@ void App::menu()
 
 void App::play()
 {
-    Game game;
-    game.runGame(window);
+    while (true)
+    {
+        Game game;
+        if (!game.runGame(window))
+            break;
+    }
     state = MENU;
 }
