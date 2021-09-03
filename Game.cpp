@@ -66,9 +66,14 @@ int Game::runGame(sf::RenderWindow &window)
         sf::Event event;
         while (window.pollEvent(event))
         {
-            if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
+            if (event.type == sf::Event::Closed)
             {
                 state = EXIT;
+                return -1;
+            }
+            if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
+            {
+                state = MENU;
             }
             if (event.type == sf::Event::MouseButtonPressed)
             {
@@ -76,7 +81,7 @@ int Game::runGame(sf::RenderWindow &window)
                 {
                     if (menuBtn.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
                     {
-                        state = EXIT;
+                        state = MENU;
                         return 0;
                     }
                     else if (replayBtn.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))) && state == LOST)

@@ -132,35 +132,65 @@ void App::play()
             {
                 if (easy.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
                 {
-                    while (true)
+                    while (state == GAME)
                     {
                         Game game(1);
-                        if (!game.runGame(window))
+                        switch (game.runGame(window))
+                        {
+                        case 0:
+                            state = MENU;
                             break;
+
+                        case -1:
+                            state = EXIT;
+                            break;
+
+                        default:
+                            break;
+                        }
                     }
-                    state = MENU;
                     break;
                 }
                 if (medium.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
                 {
-                    while (true)
+                    while (state == GAME)
                     {
                         Game game(2);
-                        if (!game.runGame(window))
+                        switch (game.runGame(window))
+                        {
+                        case 0:
+                            state = MENU;
                             break;
+
+                        case -1:
+                            state = EXIT;
+                            break;
+
+                        default:
+                            break;
+                        }
                     }
-                    state = MENU;
                     break;
                 }
                 if (hard.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
                 {
-                    while (true)
+                    while (state == GAME)
                     {
                         Game game(3);
-                        if (!game.runGame(window))
+                        switch (game.runGame(window))
+                        {
+                        case 0:
+                            state = MENU;
                             break;
+
+                        case -1:
+                            state = EXIT;
+                            break;
+
+                        default:
+                            break;
+                        }
                     }
-                    state = MENU;
                     break;
                 }
                 if (back.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))

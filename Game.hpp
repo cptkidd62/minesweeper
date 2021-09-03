@@ -22,8 +22,9 @@ private:
         PLAYING,
         WON,
         LOST,
-        EXIT,
-        REPLAY
+        MENU,
+        REPLAY,
+        EXIT
     } state;
 };
 
