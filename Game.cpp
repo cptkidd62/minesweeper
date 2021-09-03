@@ -5,6 +5,7 @@ Game::Game(int level)
     font.loadFromFile("resources/VT323-Regular.ttf");
     fontColor = sf::Color::Red;
     backColor = sf::Color(125, 125, 125);
+    this->level = level;
     if (level == 1)
     {
         board = new Board(40, 70, 5, 5);
@@ -171,12 +172,19 @@ int Game::runGame(sf::RenderWindow &window)
             // if string !empty save score
             if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Enter && !str.isEmpty())
             {
+                std::wofstream file;//FIXME
+                file.open("scores", std::ios::app);
+                if (file.good())
+                {
+                    file << level << " " << str.toWideString() << " " << winTime << "\n";
+                }
+                file.close();
                 return 0;
             }
             // enter text
             if (event.type == sf::Event::TextEntered)
             {
-                if (event.text.unicode >= 32 && event.text.unicode <= 383)
+                if (event.text.unicode > 32 && event.text.unicode <= 383)
                 {
                     str.insert(str.getSize(), static_cast<wchar_t>(event.text.unicode));
                 }
@@ -195,6 +203,13 @@ int Game::runGame(sf::RenderWindow &window)
                 // if string !empty save score
                 if (confirm.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))) && !str.isEmpty())
                 {
+                    std::wofstream file;//FIXME
+                    file.open("scores", std::ios::app);
+                    if (file.good())
+                    {
+                        file << level << " " << str.toWideString() << " " << winTime << "\n";
+                    }
+                    file.close();
                     return 0;
                 }
             }

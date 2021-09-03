@@ -2,6 +2,7 @@
 #define GAME_HPP
 
 #include <SFML/Graphics.hpp>
+#include <fstream>
 #include "Board.hpp"
 
 class Game
@@ -16,7 +17,7 @@ private:
     sf::Font font;
     sf::Color fontColor, backColor;
     Board *board;
-    int bombs;
+    int bombs, level;
     enum State
     {
         PLAYING,
