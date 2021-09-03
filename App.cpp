@@ -89,11 +89,93 @@ void App::menu()
 
 void App::play()
 {
-    while (true)
+    sf::Text easy;
+    easy.setString("Easy");
+    easy.setFont(font);
+    easy.setCharacterSize(40);
+    easy.setFillColor(fontColor);
+    easy.setPosition(window.getSize().x / 2 - easy.getGlobalBounds().width / 2, 50);
+
+    sf::Text medium;
+    medium.setString("Medium");
+    medium.setFont(font);
+    medium.setCharacterSize(40);
+    medium.setFillColor(fontColor);
+    medium.setPosition(window.getSize().x / 2 - medium.getGlobalBounds().width / 2, 150);
+
+    sf::Text hard;
+    hard.setString("Hard");
+    hard.setFont(font);
+    hard.setCharacterSize(40);
+    hard.setFillColor(fontColor);
+    hard.setPosition(window.getSize().x / 2 - hard.getGlobalBounds().width / 2, 250);
+
+    sf::Text back;
+    back.setString("Menu");
+    back.setFont(font);
+    back.setCharacterSize(40);
+    back.setFillColor(fontColor);
+    back.setPosition(window.getSize().x / 2 - back.getGlobalBounds().width / 2, 350);
+
+    while (state == GAME)
     {
-        Game game(3);
-        if (!game.runGame(window))
-            break;
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+            {
+                state = EXIT;
+                window.close();
+                break;
+            }
+            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+            {
+                if (easy.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+                {
+                    while (true)
+                    {
+                        Game game(1);
+                        if (!game.runGame(window))
+                            break;
+                    }
+                    state = MENU;
+                    break;
+                }
+                if (medium.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+                {
+                    while (true)
+                    {
+                        Game game(2);
+                        if (!game.runGame(window))
+                            break;
+                    }
+                    state = MENU;
+                    break;
+                }
+                if (hard.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+                {
+                    while (true)
+                    {
+                        Game game(3);
+                        if (!game.runGame(window))
+                            break;
+                    }
+                    state = MENU;
+                    break;
+                }
+                if (back.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+                {
+                    state = MENU;
+                    break;
+                }
+            }
+        }
+
+        window.clear(backColor);
+        window.draw(easy);
+        window.draw(medium);
+        window.draw(hard);
+        window.draw(back);
+        window.display();
     }
-    state = MENU;
 }
