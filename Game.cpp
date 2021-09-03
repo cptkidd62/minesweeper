@@ -61,6 +61,8 @@ int Game::runGame(sf::RenderWindow &window)
 
     timer.restart();
 
+    int winTime;
+
     while (state == PLAYING || state == LOST)
     {
         sf::Event event;
@@ -99,6 +101,7 @@ int Game::runGame(sf::RenderWindow &window)
                         };
                         if (p.second == 0)
                         {
+                            winTime = timer.getElapsedTime().asSeconds();
                             state = WON;
                         };
                     }
@@ -132,6 +135,75 @@ int Game::runGame(sf::RenderWindow &window)
         if (state == LOST)
             window.draw(replayBtn);
         window.draw(*board);
+        window.display();
+    }
+
+    // string for user name
+    sf::String str(L"");
+
+    // texts
+    sf::Text title;
+    title.setFont(font);
+    title.setCharacterSize(40);
+    title.setFillColor(fontColor);
+    title.setString("You won with time " + std::to_string(winTime / 60) + (winTime % 60 < 10 ? ":0" : ":") + std::to_string(winTime % 60) + "\nType your name:");
+    title.setPosition(100, 100);
+
+    sf::Text name;
+    name.setFont(font);
+    name.setCharacterSize(40);
+    name.setFillColor(fontColor);
+    name.setString(str);
+    name.setPosition(100, 300);
+
+    sf::Text confirm;
+    confirm.setFont(font);
+    confirm.setCharacterSize(40);
+    confirm.setFillColor(fontColor);
+    confirm.setString("Confirm");
+    confirm.setPosition(100, 400);
+
+    while (state == WON)
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            // if string !empty save score
+            if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Enter && !str.isEmpty())
+            {
+                return 0;
+            }
+            // enter text
+            if (event.type == sf::Event::TextEntered)
+            {
+                if (event.text.unicode >= 32 && event.text.unicode <= 383)
+                {
+                    str.insert(str.getSize(), static_cast<wchar_t>(event.text.unicode));
+                }
+                // backspace
+                if (event.text.unicode == 8)
+                {
+                    if (str.getSize() > 0)
+                    {
+                        str.erase(str.getSize() - 1, 1);
+                    }
+                }
+                name.setString(str);
+            }
+            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+            {
+                // if string !empty save score
+                if (confirm.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))) && !str.isEmpty())
+                {
+                    return 0;
+                }
+            }
+        }
+
+        window.clear(backColor);
+        window.draw(title);
+        window.draw(name);
+        window.draw(confirm);
         window.display();
     }
     return 0;
