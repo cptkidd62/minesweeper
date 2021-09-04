@@ -2,6 +2,8 @@
 #define APP_HPP
 
 #include <SFML/Graphics.hpp>
+#include <vector>
+#include <fstream>
 #include "Game.hpp"
 
 class App
@@ -16,7 +18,8 @@ private:
     {
         EXIT,
         MENU,
-        GAME
+        GAME,
+        SCORES
     };
     AppState state;
     sf::RenderWindow window;
@@ -25,6 +28,7 @@ private:
 
     void menu();
     void play();
+    void scores();
 };
 
 #endif
